@@ -23,6 +23,8 @@
                 String.format("<font color=#1a1a1a>%s</font>", info.getDiscountAmount()),
                 String.format("<font color=#f0900a>%s</font>", info.getSourceNumber()),
                 String.format("<font color=#089dfc>%s</font>", info.getGiftNumber())
+                
+    tv.setText(Html.fromHtml(html));
 
 ```
 效果：

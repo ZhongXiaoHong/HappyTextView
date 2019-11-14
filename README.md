@@ -29,3 +29,16 @@
 ```
 效果：
 ![这里写图片描述](https://github.com/ZhongXiaoHong/HappyTextView/blob/master/QQ%E6%88%AA%E5%9B%BE20191113164018.jpg?raw=true)
+
+
+## 动态设置TextView各个方向的Drawable
+示例：
+```java
+ TextView  btn = (TextView)v;
+ Drawable drawable = ContextCompat.getDrawable(this,R.mipmap.ic_launcher);
+ drawable.setBounds(0,0,70,70);//需要设置大小，否则不生效
+ btn.setCompoundDrawables(drawable,null,null,null);
+
+```
+效果
+![这里写图片描述](https://github.com/ZhongXiaoHong/HappyTextView/blob/master/18A0E398772946FDAC8E649A30C9F532.gif?raw=true)

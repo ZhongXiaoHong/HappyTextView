@@ -42,3 +42,47 @@
 ```
 效果
 ![这里写图片描述](https://github.com/ZhongXiaoHong/HappyTextView/blob/master/18A0E398772946FDAC8E649A30C9F532.gif?raw=true)
+
+
+
+## 设置TextView内容滚动
+
+1.设置android:scrollbars="vertical" 
+```java
+
+ <TextView
+        android:layout_gravity="center"
+        android:text="1、本卡不兑换现金；不能透支；可退
+余额；不计息。 
+2、网实行会员卡实名制，一人一卡，不得转借他人使用。 
+3、本会员卡同时是开启会员专属储物柜的钥匙，卡号同储物柜号一致，请妥善保存，如有损坏、丢失，请迅速挂失，补卡、换卡时需交纳10 元工本费。 4、本卡只限本网使用. 
+5、 网保留修改、变更、收回此卡的权利，并保留对此卡的最终解释权。
+1、本卡不兑换现金；不能透支；可退
+余额；不计息。 
+2、网实行会员卡实名制，一人一卡，不得转借他人使用。 
+3、本会员卡同时是开启会员专属储物柜的钥匙，卡号同储物柜号一致，请妥善保存，如有损坏、丢失，请迅速挂失，补卡、换卡时需交纳10 元工本费。 4、本卡只限本网使用. 
+5、 网保留修改、变更、收回此卡的权利，并保留对此卡的最终解释权
+1、本卡不兑换现金；不能透支；可退
+余额；不计息。 
+2、网实行会员卡实名制，一人一卡，不得转借他人使用。 
+3、本会员卡同时是开启会员专属储物柜的钥匙，卡号同储物柜号一致，请妥善保存，如有损坏、丢失，请迅速挂失，补卡、换卡时需交纳10 元工本费。 4、本卡只限本网使用. 
+5、 网保留修改、变更、收回此卡的权利，并保留对此卡的最终解释权"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/tv"
+
+          android:maxHeight="300px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:scrollbars="vertical" />
+
+```
+2.设置setMovementMethod(ScrollingMovementMethod.getInstance())
+
+```java
+textView.setMovementMethod(ScrollingMovementMethod.getInstance());
+```
+效果
+![这里写图片描述](https://github.com/ZhongXiaoHong/HappyTextView/blob/master/412431AC772F6A53A222CC6C3852C613.gif?raw=true)
+

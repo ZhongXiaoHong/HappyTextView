@@ -1,5 +1,101 @@
 # HappyTextView
 
+## 使用Html.fromHtml改变部分字体大小
+1.TextView中是不能识别size,所以需要自定义处理标签
+```java
+
+义标签名称
+    private String tagName;
+
+    // 标签开始索引
+    private int startIndex = 0;
+    // 标签结束索引
+    private int endIndex = 0;
+    // 存放标签所有属性键值对
+    final HashMap<String, String> attributes = new HashMap<>();
+
+    public HtmlTagHandler(String tagName) {
+        this.tagName = tagName;
+    }
+
+    @Override
+    public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+        // 判断是否是当前需要的tag
+        if (tag.equalsIgnoreCase(tagName)) {
+            // 解析所有属性值
+            parseAttributes(xmlReader);
+
+            if (opening) {
+                startHandleTag(tag, output, xmlReader);
+            }
+            else {
+                endEndHandleTag(tag, output, xmlReader);
+            }
+        }
+    }
+
+    public void startHandleTag(String tag, Editable output, XMLReader xmlReader) {
+        startIndex = output.length();
+    }
+
+    public void endEndHandleTag(String tag, Editable output, XMLReader xmlReader) {
+        endIndex = output.length();
+
+        // 获取对应的属性值
+        String color = attributes.get("color");
+        String size = attributes.get("size");
+        size = size.split("px")[0];
+
+        // 设置颜色
+        if (!TextUtils.isEmpty(color)) {
+            output.setSpan(new ForegroundColorSpan(Color.parseColor(color)), startIndex, endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        // 设置字体大小
+        if (!TextUtils.isEmpty(size)) {
+            output.setSpan(new AbsoluteSizeSpan(Integer.parseInt(size)), startIndex, endIndex,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+    }
+
+    /** * 解析所有属性值 * * @param xmlReader */
+    private void parseAttributes(final XMLReader xmlReader) {
+        try {
+            Field elementField = xmlReader.getClass().getDeclaredField("theNewElement");
+            elementField.setAccessible(true);
+            Object element = elementField.get(xmlReader);
+            Field attsField = element.getClass().getDeclaredField("theAtts");
+            attsField.setAccessible(true);
+            Object atts = attsField.get(element);
+            Field dataField = atts.getClass().getDeclaredField("data");
+            dataField.setAccessible(true);
+            String[] data = (String[]) dataField.get(atts);
+            Field lengthField = atts.getClass().getDeclaredField("length");
+            lengthField.setAccessible(true);
+            int len = (Integer) lengthField.get(atts);
+
+            for (int i = 0; i < len; i++) {
+                attributes.put(data[i * 5 + 1], data[i * 5 + 4]);
+            }
+        } catch (Exception e) {
+
+        }
+    }
+}
+```
+2.设置进TextView
+```java
+ String minPrice = "10.99";
+        String maxPrice = "100.33";
+        String html = String.format("<p><strong>¥ <myfont size=60>%s</myfont> <strong> <myfont size=12>%s</myfont></P>",minPrice,
+                maxPrice.equals(minPrice)? "" : " 起");
+       tv.setText(Html.fromHtml(html,null, new SizeLabel("myfont")));          
+```
+效果：
+
+![这里写图片描述](https://github.com/ZhongXiaoHong/HappyTextView/blob/master/999999999999999999999999999999.jpg?raw=true)
+
+
 ## 使用Html.fromHtml改变部分字体颜色
 
 示例：

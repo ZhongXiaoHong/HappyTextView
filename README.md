@@ -3,7 +3,7 @@
 ## 使用Html.fromHtml改变部分字体大小
 1.TextView中是不能识别size,所以需要自定义处理标签
 ```java
-
+public class HtmlTagHandler  implements Html.TagHandler { 
 义标签名称
     private String tagName;
 

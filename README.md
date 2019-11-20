@@ -87,7 +87,7 @@ public class HtmlTagHandler  implements Html.TagHandler {
 ```java
  String minPrice = "10.99";
         String maxPrice = "100.33";
-        String html = String.format("<p><strong>¥ <myfont size=60>%s</myfont> <strong> <myfont size=12>%s</myfont></P>",minPrice,
+        String html = String.format("<p><strong>¥ <myfont size='60px'>%s</myfont> <strong> <myfont size='12px'>%s</myfont></P>",minPrice,
                 maxPrice.equals(minPrice)? "" : " 起");
        tv.setText(Html.fromHtml(html,null, new SizeLabel("myfont")));          
 ```
